@@ -20,8 +20,11 @@ class File {
     return content;
   }
 
+  // /home/troyfalcon/www/projects/javascript-expert/module01/aula01-mocks/src/mocks/emptyFile-invalid.csv
+  // /home/troyfalcon/www/projects/javascript-expert/module01/aula01-mocks/mocks/emptyFile-invalid.csv
+
   static async getFileContent(filePath) {
-    const fileName = join(__dirname, filePath);
+    const fileName = join(__dirname, "..", filePath);
     return (await readFile(fileName)).toString("utf-8");
   }
 
@@ -57,13 +60,5 @@ class File {
     return { valid: true };
   }
 }
-
-(async () => {
-  // const result = await File.csvToJson("./../mocks/threeItems-valid.csv");
-  const result = await File.csvToJson("./../mocks/threeItems-invalid.csv");
-  // const result = await File.csvToJson("./../mocks/fourItems-invalid.csv");
-  // const result = await File.csvToJson("./../mocks/invalid-header.csv");
-  console.log("result", result);
-})();
 
 module.exports = File;
