@@ -1,4 +1,5 @@
 const sinon = require("sinon");
+const { deepStrictEqual } = require("assert");
 
 const Service = require("./service");
 
@@ -29,7 +30,23 @@ const mocks = {
   stub.withArgs(BASE_URL_2).resolves(mocks.alderaan);
 
   {
-    const response = await service.makeRequest(BASE_URL_1);
-    console.log("response", response);
+    const expected = {
+      name: "Tatooine",
+      surfaceWater: "1",
+      appearedIn: 5,
+    };
+
+    const results = await service.getPlanets(BASE_URL_1);
+    deepStrictEqual(results, expected);
+  }
+  {
+    const expected = {
+      name: "Alderaan",
+      surfaceWater: "40",
+      appearedIn: 2,
+    };
+
+    const results = await service.getPlanets(BASE_URL_2);
+    deepStrictEqual(results, expected);
   }
 })();
