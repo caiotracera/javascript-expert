@@ -2,6 +2,8 @@
 
 Testes, em geral, são como um jogo. Você especifica checkpoints e testa suas funções do ponto A para o ponto B.
 
+- Os testes não devem depender de serviços externos nem de internet.
+
 ## O que são mocks?
 
 Os mocks servem para que você evite duplicação de testes, criando objetos que partem do principio que o teste A está funcionando, e guardando o resultado deles em um objeto fixo para que você consiga testar o fluxo do ponto B para o ponto C, sem depender do ponto A.
