@@ -17,3 +17,9 @@ Supondo que você está desenvolvendo um serviço que faz uma consulta à uma AP
 Um _use case_ real é imaginar que você precisa fazer uma requisição para uma API de CEP, e o sistema possui diversas regras de negócio que dependem das respostas dessa API. No entanto, numa sexta-feira, a API de CEP sai do ar e, por conta disso, nenhum dos testes estão passando.
 
 Os stubs substituem o comportamento da função, dizendo que, quando a função que acessa a API de CEP for acessada, ela retornará um resultado pré-definido.
+
+## O que são spies?
+
+AInda no ambiente de trabalho, depois de todos os testes, é feito um deploy para produção e o sistema começa a se comportar de forma inapropriada. Após investigar, você percebe que o sistema em looping infinito e batendo na API do cliente. Para evitar esse tipo de problema, devemos usar os **spies**.
+
+Eles observam as funções e validam a quantidade de vezes que foram chamadas, com quais paramêtros e quais resultados elas retornaram.
