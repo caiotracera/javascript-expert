@@ -2,6 +2,7 @@ const { readFile } = require("fs/promises");
 const { join } = require("path");
 
 const { error } = require("./constants");
+const User = require("./user");
 
 const DEFAULT_OPTIONS = {
   maxLines: 3,
@@ -17,7 +18,7 @@ class File {
       throw new Error(validation.error);
     }
 
-    return content;
+    return File.parseCSVToJSON(content);
   }
 
   static async getFileContent(filePath) {
@@ -55,6 +56,34 @@ class File {
     }
 
     return { valid: true };
+  }
+
+  static parseCSVToJSON(csvString) {
+    const lines = csvString.split("\n");
+
+    /**
+     * Remove o primeiro item do array, que é o header, e joga na variável.
+     * Dessa forma, o array lines fica somente com as linhas e sem o header.
+     */
+    const firstLine = lines.shift();
+    const header = firstLine.split(",");
+    return lines.map((line) => {
+      const columns = line.split(",");
+      const user = {};
+
+      for (const index in columns) {
+        /**
+         * Pego o header que tem o index e atribuo ao valor da coluna que tem o index.
+         * Dessa forma, no caso do index = 0, o valor do header no index 0 é o id,
+         * e o valor da coluna no index 0 é, por exemplo, 123.
+         *
+         * Isso será equivalente à:
+         * user.id = 123
+         */
+        user[header[index]] = columns[index];
+      }
+      return new User(user);
+    });
   }
 }
 
