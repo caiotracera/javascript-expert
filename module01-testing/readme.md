@@ -23,3 +23,9 @@ Os stubs substituem o comportamento da função, dizendo que, quando a função 
 AInda no ambiente de trabalho, depois de todos os testes, é feito um deploy para produção e o sistema começa a se comportar de forma inapropriada. Após investigar, você percebe que o sistema em looping infinito e batendo na API do cliente. Para evitar esse tipo de problema, devemos usar os **spies**.
 
 Eles observam as funções e validam a quantidade de vezes que foram chamadas, com quais paramêtros e quais resultados elas retornaram.
+
+## O que são testes end-to-end (e2e)?
+
+Pode ser que, no dia-a-dia, não seja possível priorizar o refatoramento de todo o sistema para garantir que todas as funções individuais estejam testadas. Entretanto, talvez seja necessário garantir que o sistema está funcionando à nível de funcionalidades completas ou a nível de rotas da API. Para isso servem os testes **end-to-end**: testar o funcionamento da sua função do ponto de vista do usuário. Dessa forma, supondo que você queira testar o processo de login, você cria um teste que chama o endpoint de login e espera que ele retorne o token do cliente.
+
+Os testes end-to-end são a melhor forma de garantir, em um sistema que não tem uma cobertura efetiva de testes, que tudo continue funcionando depois de alguma alteração.
