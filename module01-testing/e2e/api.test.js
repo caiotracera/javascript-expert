@@ -1,6 +1,6 @@
 const request = require("supertest");
 const { describe, it } = require("mocha");
-const { deepStrictEqual } = require("assert");
+const assert = require("assert");
 
 const app = require("./api");
 
@@ -9,7 +9,7 @@ describe("API Suite test", () => {
     it("should request the contact page and return HTTP Status 200", async () => {
       const response = await request(app).get("/contact").expect(200);
 
-      deepStrictEqual(response.text, "contact us page");
+      assert.deepStrictEqual(response.text, "contact us page");
     });
   });
 
@@ -17,7 +17,28 @@ describe("API Suite test", () => {
     it("should request an inexistent route /hi and redirect to /hello", async () => {
       const response = await request(app).get("/hi").expect(200);
 
-      deepStrictEqual(response.text, "Hello world!");
+      assert.deepStrictEqual(response.text, "Hello world!");
+    });
+  });
+
+  describe("/login", () => {
+    it("should login successfully on the login route and return HTTP Status 200", async () => {
+      const response = await request(app)
+        .post("/login")
+        .send({ username: "CaioTracera", password: "123" })
+        .expect(200);
+
+      assert.deepStrictEqual(response.text, "Logging has succeded!");
+    });
+
+    it("should unauthorize a request when requesting it using wrong credentials and return HTTP Status 401", async () => {
+      const response = await request(app)
+        .post("/login")
+        .send({ username: "xuxaDaSilva", password: "456" })
+        .expect(401);
+
+      assert.ok(response.unauthorized);
+      assert.deepStrictEqual(response.text, "Logging failed!");
     });
   });
 });
