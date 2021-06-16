@@ -1,12 +1,1 @@
-[
-  {
-    "id": "9e6b2e0f-07ef-44b4-94f1-925782d3c7bc",
-    "name": "Coupe",
-    "carIds": [
-      "668b7554-4734-471c-bcf9-c0afe97b999f",
-      "88a82dc5-1e4b-4d0e-98ff-8478164384d8",
-      "0242d7e5-1b13-47ca-9ce1-f92ba356c054"
-    ],
-    "price": 69.63
-  }
-]
+[{"id":"05f46d27-5b45-43fc-9a05-5631a9b3b078","name":"Convertible","carIds":["c6d143d7-cee5-4463-b74c-478e064309d7","7a36c3f2-97cc-4015-bb4f-2233a2346cec","48282899-0a3f-48ae-bcea-1d6e3283cea3"],"price":66.54}]
