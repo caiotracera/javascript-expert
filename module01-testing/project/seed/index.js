@@ -9,6 +9,7 @@ const Customer = require("./../src/entities/customer");
 const seederBaseFolder = join(__dirname, "../", "database");
 const ITEMS_AMOUNT = 2;
 const cars = [];
+const customers = [];
 
 const carCategory = new CarCategory({
   id: faker.datatype.uuid(),
@@ -28,6 +29,14 @@ for (let index = 0; index <= ITEMS_AMOUNT; index++) {
 
   carCategory.carIds.push(car.id);
   cars.push(car);
+
+  const customer = new Customer({
+    id: faker.datatype.uuid(),
+    name: faker.name.findName(),
+    age: faker.datatype.number({ min: 18, max: 50 }),
+  });
+
+  customers.push(customer);
 }
 
 const write = (filename, data) =>
@@ -36,4 +45,5 @@ const write = (filename, data) =>
 (async () => {
   await write("cars.json", cars);
   await write("carCategories.json", [carCategory]);
+  await write("customers.json", customers);
 })();
