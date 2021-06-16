@@ -29,3 +29,15 @@ Eles observam as funções e validam a quantidade de vezes que foram chamadas, c
 Pode ser que, no dia-a-dia, não seja possível priorizar o refatoramento de todo o sistema para garantir que todas as funções individuais estejam testadas. Entretanto, talvez seja necessário garantir que o sistema está funcionando à nível de funcionalidades completas ou a nível de rotas da API. Para isso servem os testes **end-to-end**: testar o funcionamento da sua função do ponto de vista do usuário. Dessa forma, supondo que você queira testar o processo de login, você cria um teste que chama o endpoint de login e espera que ele retorne o token do cliente.
 
 Os testes end-to-end são a melhor forma de garantir, em um sistema que não tem uma cobertura efetiva de testes, que tudo continue funcionando depois de alguma alteração.
+
+## Como pensar sobre os testes?
+
+### Test-Driven Development (TDD)
+
+O TDD prega que devemos seguir um ciclo de processos, primeiro escrevendo um teste que falha, em seguida adicionamos a implementação no código para que o teste passe, depois refatoramos o código e o fluxo se repete até que as funções fiquem atômicas com a menor interdependência possível. A ideia é que a gente deve pensar e planejar o que será codificado e criar os testes antes de codificar de fato.
+
+### Behaviour-Driven Development (BDD)
+
+É um conjunto de práticas que, na teoria, deveria ser usado junto com o TDD na criação de testes unitários. Tem uma relação mais próxima com a área de negócios, e diz o que você precisa testar de forma mais detalhada com o uso da linguagem obliquoa, onde os analistas escrevem as regras do ponto de vista de negócios/não tecnico. Algo como: _Como usuário do sistema, eu quero saber o resultado da multiplicação de dois valores. Quando inserir dois valores, sendo 2 e 5, então o sistema deve retornar 10 e imprimir na tela_.
+
+A específicação, no geral, é focada na linguagem de negócio e funcionalidades, ao invés de falar como deve funcionar. No exemplo acima, o que sabemos é que entram dois valores e sai um valor, mas não diz nada sobre como multiplicar/calcular os valores.
