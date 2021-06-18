@@ -1,6 +1,7 @@
-const { describe, it, before } = require("mocha");
+const { describe, it, before, beforeEach, afterEach } = require("mocha");
 const { join } = require("path");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
 const CarService = require("./../../src/service/carService");
 
@@ -13,9 +14,18 @@ const mocks = {
 
 describe("CarService Suite Tests", () => {
   let carService;
+  let sandbox = {};
 
   before(() => {
     carService = new CarService({ cars: carsDatabase });
+  });
+
+  beforeEach(() => {
+    sandbox = sinon.createSandbox();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
   });
 
   it("should retrieve a random position from an array", () => {
@@ -24,4 +34,29 @@ describe("CarService Suite Tests", () => {
 
     expect(result).to.be.lte(data.length).and.to.be.gte(0);
   });
+
+  it("should choose the first id from carIds in carCategory", () => {
+    const carCategory = mocks.validCarCategory;
+    const carIdIndex = 0;
+
+    sandbox
+      .stub(carService, carService.getRandomPositionFromArray.name)
+      .returns(carIdIndex);
+
+    const result = carService.chooseRandomCar(carCategory);
+    const expected = carCategory.carIds[carIdIndex];
+
+    expect(result).to.be.equal(expected);
+  });
+
+  // it("given a carCategory it should return an available car", async () => {
+  //   const carCategory = Object.create(mocks.validCarCategory);
+  //   const car = mocks.validCar;
+  //   carCategory.ids = [car.id];
+
+  //   const result = await carService.getAvailableCar(carCategory);
+  //   const expected = car;
+
+  //   expect(result).to.be.deep.equal(expected);
+  // });
 });
