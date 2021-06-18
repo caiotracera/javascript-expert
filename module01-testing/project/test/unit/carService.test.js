@@ -46,6 +46,7 @@ describe("CarService Suite Tests", () => {
     const result = carService.chooseRandomCar(carCategory);
     const expected = carCategory.carIds[carIdIndex];
 
+    expect(carService.getRandomPositionFromArray.calledOnce).to.be.ok;
     expect(result).to.be.equal(expected);
   });
 
