@@ -9,6 +9,11 @@ class CarService {
     return Math.floor(Math.random() * list.length);
   }
 
+  chooseRandomCar(carCategory) {
+    const randomCarIndex = this.getRandomPositionFromArray(carCategory.carIds);
+    return carCategory.carIds[randomCarIndex];
+  }
+
   async getAvailableCar(carCategory) {
     return null;
   }
