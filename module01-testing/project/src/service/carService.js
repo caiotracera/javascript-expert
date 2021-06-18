@@ -5,8 +5,8 @@ class CarService {
     this.carRepository = new BaseRepository({ file: cars });
   }
 
-  test() {
-    return this.carRepository.find();
+  test(id) {
+    return this.carRepository.find(id);
   }
 }
 
