@@ -56,3 +56,52 @@ Como as chamados do Javascript acontecem de forma assíncrona, ela usa o call st
 No entanto, como só podemos armazenar tipos primitivos na call stack, para executarmos funções e manipular variáveis e arrays que podem crescer dinamicamente, usamos a **Memory Heap**, ou a pilha de memória. Lá ficam armazenados os endereços de memória que podem ser apontados pelo call stack para trabalhar o valor de funções, variáveis, objectos, arrays e etc.
 
 A principal diferença entre um e outro é que o call stack guarda dados de tipos de valor primitivos, enquanto o memory heap guarda dados de tipos de referência que podem crescer dinamicamente, como funções, arrays e outros.
+
+## Tipo de Valor vs Tipo de Referência (Immutability vs Mutability)
+
+Ao criar duas variáveis diferentes, sendo `counter` e `counter2`, e inicializá-las com o numero 0 e `counter`, respectivamente, qual será o valor de `counter2` se eu fizer um `counter2++`?
+
+```jsx
+let counter = 0;
+let counter2 = counter;
+counter2++;
+
+console.log(counter); // 0
+console.log(counter2); // 1
+```
+
+Repare que o valor de `counter` é 0, mas o valor de `counter2` é 1. Isso se dá porque, após definir que a variável `counter2` será inicilizada com o valor de `counter`, o Javascript copia o valor do endereço de memória para outro endereço. Dessa forma, o que for feito no `counter` não reflete no `counter2`, e vice-versa.
+
+E se, ao invés de usarmos variáveis do tipo inteiro, usarmos objetos? Criando a variável `item` que recebe o objeto `{ counter: 0 }` e definindo que a variável `item2` receberá a variável `item`, qual será o valor de `item2.counter` após tentarmos incrementá-lo?
+
+```jsx
+const item = { counter: 0 };
+const item2 = item;
+
+item2.counter++;
+console.log(item); // { counter: 1 }
+console.log(item2); // { counter: 1 }
+```
+
+Com isso, percebemos que os tipos primivos são armazenados de uma forma e os tipos de referência são guardadas de outra forma. Ou seja, repare que quando jogamos uma variável de um lado para o outro, estávamos alterando somente o endereço que, no fim, apontavam para a mesma variável.
+
+**Resumindo**: o tipo primitivo gera uma cópia em memória, e o tipo de referência copia o endereço de memória e aponta para o mesmo lugar.
+
+## Coerção de Tipos & Objects Lifecycle
+
+Coerção de tipos é um conceito bastante utilizado no Javascript para explicar os comportamentos bizarros da linguagem. Em resumo, a coerção de tipos é um processo de conversão de um valor para qualquer outro tipo, como converter uma string para um number.
+
+No Javascript qualquer tipo de dados está sujeito a coerção, só que só existem três tipos de coerção no fim: string, number ou boolean. Existem dois tipos de coerção:
+
+- Implicita: geralmente usada com operadores, quando somamos uma string com um numero, por exemplo. Para evitar problemas, é recomendado substiutir o _Loose Equality Operator_ (`==`) pelo _Strict Equality Operator_ (`===`).
+- Explícita: é feita quando o programador expressa a intensão de converter um tipo para o outro através do código certo, como em `Number(value)` ou em `String(123)`.
+
+Quando falamos sobre objetos, a coisa funciona de forma diferente. No Javascript, todo objeto tem alguns métodos por padrão, como `.toString()`, `.isPrototypeOf()`, `.hasOwnProperty()`, `.valueOf()`, entre outros. Na hora de converter o objeto para string, ele vai seguir uma ordem de chamada:
+
+1. Verifica se o tipo já é primitivo. Se for, ele não faz nada e retorna.
+2. Chama a função `.toString()` do objeto. Se o resultado desse método for um tipo primitivo ele retorna.
+3. Chama o método `.valueOf()`.
+
+Caso nenhum desses retorne um valor primitivo, o Javascript estoura um `type error`. Além disso, é importante saber que a ordem de chamada entre o `.toString()` e o `.valueOf()` podem mudar de acordo com o tipo de conversão. Se for um tipo numérico, primeiro ele chamada o `.valueOf()`.
+
+Junto com o ES6, veio uma teceira opção chamada `Symbol.toPrimitive()`, que tem uma ordem de prioridade maior do que o `.toString()` e o `.valueOf()`, e quando implementado, ele ignora todo o resto.
