@@ -1,5 +1,6 @@
 const BaseRepository = require("./../repository/base/baseRepository");
 const Tax = require("./../entities/tax");
+const Transaction = require("./../entities/transaction");
 
 class CarService {
   constructor({ cars }) {
@@ -34,6 +35,31 @@ class CarService {
 
     const finalPrice = tax * price * numberOfDays;
     return this.currencyFormat.format(finalPrice);
+  }
+
+  async rent(customer, carCategory, numberOfDays) {
+    const car = await this.getAvailableCar(carCategory);
+    const finalPrice = await this.calculateFinalPrice(
+      customer,
+      carCategory,
+      numberOfDays
+    );
+
+    const today = new Date();
+    today.setDate(today.getDate() + numberOfDays);
+
+    const dueDate = today.toLocaleDateString("pt-br", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    return new Transaction({
+      customer,
+      dueDate,
+      car,
+      amount: finalPrice,
+    });
   }
 }
 
