@@ -68,4 +68,32 @@ describe("CarService Suite Tests", () => {
     expect(carService.carRepository.find.calledWithExactly(car.id));
     expect(result).to.be.deep.equal(expected);
   });
+
+  it("given a carCategory, customer and numberOfDays, it should calculate final amount in BRL", async () => {
+    const numberOfDays = 5;
+    const customer = Object.create(mocks.validCustomer);
+    customer.age = 50;
+
+    const carCategory = Object.create(mocks.validCarCategory);
+    carCategory.price = 37.6;
+
+    // age: 50, tax: 1.3, categoryPrice: 37.6
+    // 37.6 * 1.3 = 48.88 * 5 days = 244.4
+
+    // para não depender de dados estáticos, vamos criar um stub para substituir
+    // os dados que vem da classe
+
+    sandbox
+      .stub(carService, "taxesBasedOnAge")
+      .get(() => [{ from: 40, to: 50, then: 1.3 }]);
+
+    const expected = carService.currencyFormat.format(244.4);
+    const result = carService.calculateFinalPrice(
+      customer,
+      carCategory,
+      numberOfDays
+    );
+
+    expect(result).to.be.deep.equal(expected);
+  });
 });
