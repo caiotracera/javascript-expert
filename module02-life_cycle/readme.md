@@ -108,7 +108,7 @@ Junto com o ES6, veio uma teceira opção chamada `Symbol.toPrimitive()`, que te
 
 ## Prototype Chain - Herança em Javascript
 
-Internamente, tudo no Javascript é um objeto. Quando criamos uma classe, a palavra reservada `class` é o que chamados de _syntax-sugar_, ou seja, internamente a implementação da classe vira um objeto. Em linguagens que trabalham majoritariamente com OO como C# e Java, é bem comum trabalharmos com conceito de herança. Em resumo, herança de objetos é a habilidade de acessar métodos e propriedades de outro objeto pai a partir de um objeto derivado. Em Javascript, a herança é realizada através do `**Prototype`\** e essa forma herança também é chamada como *Herança de Protótipos\*.
+Internamente, tudo no Javascript é um objeto. Quando criamos uma classe, a palavra reservada `class` é o que chamados de _syntax-sugar_, ou seja, internamente a implementação da classe vira um objeto. Em linguagens que trabalham majoritariamente com OO como C# e Java, é bem comum trabalharmos com conceito de herança. Em resumo, herança de objetos é a habilidade de acessar métodos e propriedades de outro objeto pai a partir de um objeto derivado. Em Javascript, a herança é realizada através do \*\*`Prototype`\** e essa forma herança também é chamada como *Herança de Protótipos\*.
 
 Quando tentamos procurar pela existência em alguma propriedade do objeto, o motor do Javascript vai primeiro verificar o objeto para ver se aquela propriedade existe e, se não existir, ele vai olhar no prototype do objeto. Ainda não existindo, ele passa a olhar o prototype do prototype, até chegar ao último prototype, que é igual a null, e, por tanto, retornará `undefined`.
 
