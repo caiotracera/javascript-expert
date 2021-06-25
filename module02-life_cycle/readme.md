@@ -113,3 +113,66 @@ Internamente, tudo no Javascript é um objeto. Quando criamos uma classe, a pala
 Quando tentamos procurar pela existência em alguma propriedade do objeto, o motor do Javascript vai primeiro verificar o objeto para ver se aquela propriedade existe e, se não existir, ele vai olhar no prototype do objeto. Ainda não existindo, ele passa a olhar o prototype do prototype, até chegar ao último prototype, que é igual a null, e, por tanto, retornará `undefined`.
 
 O `__proto__` é a referência do objeto que possui as propriedades nele. Logo, tudo que tem dentro da instância do objeto, será redirecionado para dentro da variável `__proto__`.
+
+## This, apply, call e arguments
+
+Em alguns casos, quando passamos uma função para que outra execute, pode ser que o `this` da função seja substituído pelo de outra função, como no caso:
+
+```jsx
+class File {
+  watch(event, filename) {
+    this.showContent(filename);
+  }
+
+  async showContent(filename) {
+    console.log((await readFile(filename)).toString());
+  }
+}
+
+const file = new File();
+/**
+ * Dessa forma ele ignore o 'this' da class File,
+ * e herda o 'this' do watch!
+ */
+watch(__filename, file.watch);
+```
+
+Sempre que for necessário delegar uma função para que outra execute, é sempre importante chamar o `.bind()` com o contexto que o `this` deve assumir.
+
+```jsx
+class File {
+  watch(event, filename) {
+    this.showContent(filename);
+  }
+
+  async showContent(filename) {
+    console.log((await readFile(filename)).toString());
+  }
+}
+
+const file = new File();
+/**
+ * Para nao herdar o this do watch, uma alternativa é usar arrow function.
+ * Mas não é legal usar assim, por questões de arquitetura.
+ *
+ * A melhor forma de fazer isso é deixar explicito qual é o contexto que a função deve seguir
+ */
+watch(__filename, file.watch.bind(file));
+```
+
+Já os métodos `.call` e `.apply` servem para identificar quando um método é chamado, podendo disparar uma função de callback.
+
+```jsx
+file.watch.call(
+  { showContent: () => console.log("call: hey sinon!") },
+  null,
+  __filename
+);
+
+file.watch.apply({ showContent: () => console.log("call: hey sinon!") }, [
+  null,
+  __filename,
+]);
+```
+
+A palavra chave `arguments` pega toda a lista de argumentos que é passada para a função. Entretanto, usar os `arguments` diretamente é uma má prática no Javascript, uma vez que você acaba perdendo o controle do que está sendo passado para a variável.
