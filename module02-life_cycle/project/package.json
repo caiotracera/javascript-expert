@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon --ignore database.json --experimental-json-modules --experimental-top-level-await --exec node src/index.js",
-    "test": "npx mocha -w --parallel **/**/*.test.js",
-    "test:cov": "npx nyc npx mocha --parallel **/**/*.test.js"
+    "test": "npx mocha -w --parallel test/*.test.js",
+    "test:cov": "npx nyc npx mocha --parallel test/*.test.js"
   },
   "engines": {
     "node": "14.3"
