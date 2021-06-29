@@ -5,8 +5,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon --ignore database.json --experimental-json-modules --exec node src/index.js",
+    "dev": "npx nodemon --ignore database.json --experimental-json-modules --experimental-top-level-await --exec node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.3"
   },
   "keywords": [],
   "author": "",
