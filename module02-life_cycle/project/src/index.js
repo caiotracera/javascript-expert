@@ -1,5 +1,6 @@
 import { TerminalController } from "./controllers/TerminalController.js";
 import database from "./../database.json";
+import { Person } from "./person.js";
 
 const DEFAULT_LANG = "pt-BR";
 const STOP_TERM = ":q";
@@ -16,6 +17,9 @@ async function mainLoop() {
       return;
     }
 
+    const person = Person.generateInstanceFromString(answer);
+    terminalController.updateTable(person.formatted(DEFAULT_LANG));
+
     return mainLoop();
   } catch (error) {
     console.log("DEU RUIM**", error);
@@ -24,3 +28,5 @@ async function mainLoop() {
 }
 
 await mainLoop();
+
+// 2 Bike,Aviao,Navio 20000000 2000-01-01 2002-02-02
