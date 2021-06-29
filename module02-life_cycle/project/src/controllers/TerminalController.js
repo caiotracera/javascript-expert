@@ -30,7 +30,11 @@ export class TerminalController {
   }
 
   question(message = "") {
-    return new Promise((resolve) => this.terminal.question(msg, resolve));
+    return new Promise((resolve) => this.terminal.question(message, resolve));
+  }
+
+  closeTerminal() {
+    this.terminal.close();
   }
 
   getTableOptions() {
