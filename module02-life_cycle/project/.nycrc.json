@@ -5,5 +5,5 @@
   "functions": 100,
   "checkCoverage": true,
   "reporter": ["html", "text"],
-  "exclude": ["src/repository/base/*.js"]
+  "exclude": []
 }
