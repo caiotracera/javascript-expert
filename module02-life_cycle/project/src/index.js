@@ -28,5 +28,3 @@ async function mainLoop() {
 }
 
 await mainLoop();
-
-// 2 Bike,Aviao,Navio 20000000 2000-01-01 2002-02-02
