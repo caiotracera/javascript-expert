@@ -1,0 +1,12 @@
+{
+  "name": "javascript-expert",
+  "description": "All projects developed in the Javascript Expert course",
+  "author": "caiotracera",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@caiotracera/eslint-config": "^3.3.1",
+    "eslint": "^8.56.0"
+  }
+}

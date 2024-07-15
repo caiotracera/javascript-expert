@@ -1,0 +1,13 @@
+{
+  "name": "mocks",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.test.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "author": "caiotracera",
+  "license": "ISC"
+}
